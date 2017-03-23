@@ -73,11 +73,10 @@
     <Compile Include="Extension\DataExtension.cs" />
     <Compile Include="Extension\IEnumerableExtension.cs" />
     <Compile Include="Extension\SerializerExtension.cs" />
+    <Compile Include="Extension\StringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\HttpHelper.cs" />
     <Compile Include="Utility\ValidateCode.cs" />
-    <Compile Include="WCF\ChannelFactoryCreator.cs" />
-    <Compile Include="WCF\CustomClientChannel.cs" />
     <Compile Include="Write\LogService.cs" />
     <Compile Include="Write\TextWriter.cs" />
   </ItemGroup>
