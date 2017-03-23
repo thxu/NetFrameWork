@@ -1,5 +1,6 @@
 ﻿using NetFrameWork.Common.Extension;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Text;
 
@@ -20,7 +21,7 @@ namespace NetFrameWork.Common.Write
         /// </summary>
         /// <param name="ex">异常</param>
         /// <param name="remark">备注</param>
-        public static void WriteLog(System.Exception ex, string remark)
+        public static void WriteLog(Exception ex, string remark)
         {
             WriteLog(ex, null, remark);
         }
@@ -31,10 +32,10 @@ namespace NetFrameWork.Common.Write
         /// <param name="ex">异常</param>
         /// <param name="path">日志路径</param>
         /// <param name="remark">备注</param>
-        public static void WriteLog(System.Exception ex, string path, string remark)
+        public static void WriteLog(Exception ex, string path, string remark)
         {
             var errormessage = CreateErrorMessage(ex, remark);
-            WriteLog(errormessage.ToString(), path ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs/ExceptionLog"));
+            WriteLog(errormessage.ToString(), path ?? Path.Combine(GetLogPath(), "Logs/ExceptionLog"));
         }
 
         /// <summary>
@@ -44,10 +45,10 @@ namespace NetFrameWork.Common.Write
         /// <param name="ex">异常</param>
         /// <param name="path">日志路径</param>
         /// <param name="remark">备注</param>
-        public static void WriteLog(string describe, System.Exception ex, string path, string remark)
+        public static void WriteLog(string describe, Exception ex, string path, string remark)
         {
             var errormessage = CreateErrorMessage(ex, remark);
-            WriteLog(string.Format("Describe:{0} Error:{1}", describe, errormessage), path ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs/ExceptionLog"));
+            WriteLog($"Describe:{describe} Error:{errormessage}", path ?? Path.Combine(GetLogPath(), "Logs/ExceptionLog"));
         }
 
         /// <summary>
@@ -56,14 +57,14 @@ namespace NetFrameWork.Common.Write
         /// <param name="ex">异常信息</param>
         /// <param name="remark">备注</param>
         /// <returns>结果</returns>
-        private static StringBuilder CreateErrorMessage(System.Exception ex, string remark)
+        private static StringBuilder CreateErrorMessage(Exception ex, string remark)
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("************************Exception Start********************************");
             string newLine = Environment.NewLine;
             stringBuilder.Append(newLine);
             stringBuilder.AppendLine("Exception Remark：" + remark);
-            System.Exception innerException = ex.InnerException;
+            Exception innerException = ex.InnerException;
             stringBuilder.AppendFormat("Exception Date:{0}{1}", DateTime.Now, Environment.NewLine);
             if (innerException != null)
             {
@@ -87,7 +88,7 @@ namespace NetFrameWork.Common.Write
         /// <param name="content">日志内容</param>
         public static void WriteLog(string content)
         {
-            WriteLog(content, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"));
+            WriteLog(content, Path.Combine(GetLogPath(), "Logs"));
         }
 
         /// <summary>
@@ -121,10 +122,10 @@ namespace NetFrameWork.Common.Write
                 stringBuilder.Append("************************End************************************");
                 stringBuilder.Append(Environment.NewLine);
                 var logContent = stringBuilder.ToString();
-                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs/" + saveFolder);
+                var path = Path.Combine(GetLogPath(), "Logs/" + saveFolder);
                 WriteLog(logContent, path);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 WriteLog(ex, "记录调用日志异常");
             }
@@ -154,10 +155,27 @@ namespace NetFrameWork.Common.Write
                             DateTime.Now.ToString("日志时间:yyyy-MM-dd HH:mm:ss") + Environment.NewLine + content
                             + Environment.NewLine);
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     return false;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 获取日志路径
+        /// </summary>
+        /// <returns>路径</returns>
+        internal static string GetLogPath()
+        {
+            var logs = ConfigurationManager.AppSettings["Logs"];
+            if (string.IsNullOrWhiteSpace(logs))
+            {
+                return AppDomain.CurrentDomain.BaseDirectory;
+            }
+            else
+            {
+                return logs;
             }
         }
     }

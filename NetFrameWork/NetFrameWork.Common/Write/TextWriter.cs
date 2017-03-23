@@ -6,7 +6,7 @@ namespace NetFrameWork.Common.Write
     /// <summary>
     /// 写入文本
     /// </summary>
-    public class TextWriter
+    internal class TextWriter
     {
         /// <summary>
         /// 写入文件路径
@@ -125,7 +125,7 @@ namespace NetFrameWork.Common.Write
                 {
                     result = CreateFile(path, GetFileMainName(timeStamp));
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     return null;
                 }
@@ -157,7 +157,7 @@ namespace NetFrameWork.Common.Write
         /// <returns>FileStream</returns>
         private static FileStream CreateFile(string path, string fileName1)
         {
-            return File.Create(string.Format(@"{0}\{1}.log", path, fileName1));
+            return File.Create($@"{path}\{fileName1}.log");
         }
 
         /// <summary>
