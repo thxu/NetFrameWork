@@ -125,7 +125,7 @@ namespace NetFrameWork.Common.Write
                 {
                     result = CreateFile(path, GetFileMainName(timeStamp));
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                     return null;
                 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetFrameWork.Common.Code
+namespace NetFrameWork.Common.Exception
 {
     /// <summary>
     /// 自定义异常

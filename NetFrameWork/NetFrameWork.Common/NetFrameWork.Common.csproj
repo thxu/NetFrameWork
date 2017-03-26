@@ -69,6 +69,7 @@
     <Compile Include="Encrypt\GZipString.cs" />
     <Compile Include="Encrypt\Md5.cs" />
     <Compile Include="Encrypt\SHA1.cs" />
+    <Compile Include="Exception\CustomException.cs" />
     <Compile Include="Extension\ConvertExtension.cs" />
     <Compile Include="Extension\DataExtension.cs" />
     <Compile Include="Extension\IEnumerableExtension.cs" />

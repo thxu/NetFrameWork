@@ -21,7 +21,7 @@ namespace NetFrameWork.Common.Write
         /// </summary>
         /// <param name="ex">异常</param>
         /// <param name="remark">备注</param>
-        public static void WriteLog(Exception ex, string remark)
+        public static void WriteLog(System.Exception ex, string remark)
         {
             WriteLog(ex, null, remark);
         }
@@ -32,7 +32,7 @@ namespace NetFrameWork.Common.Write
         /// <param name="ex">异常</param>
         /// <param name="path">日志路径</param>
         /// <param name="remark">备注</param>
-        public static void WriteLog(Exception ex, string path, string remark)
+        public static void WriteLog(System.Exception ex, string path, string remark)
         {
             var errormessage = CreateErrorMessage(ex, remark);
             WriteLog(errormessage.ToString(), path ?? Path.Combine(GetLogPath(), "Logs/ExceptionLog"));
@@ -45,7 +45,7 @@ namespace NetFrameWork.Common.Write
         /// <param name="ex">异常</param>
         /// <param name="path">日志路径</param>
         /// <param name="remark">备注</param>
-        public static void WriteLog(string describe, Exception ex, string path, string remark)
+        public static void WriteLog(string describe, System.Exception ex, string path, string remark)
         {
             var errormessage = CreateErrorMessage(ex, remark);
             WriteLog($"Describe:{describe} Error:{errormessage}", path ?? Path.Combine(GetLogPath(), "Logs/ExceptionLog"));
@@ -57,14 +57,14 @@ namespace NetFrameWork.Common.Write
         /// <param name="ex">异常信息</param>
         /// <param name="remark">备注</param>
         /// <returns>结果</returns>
-        private static StringBuilder CreateErrorMessage(Exception ex, string remark)
+        private static StringBuilder CreateErrorMessage(System.Exception ex, string remark)
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("************************Exception Start********************************");
             string newLine = Environment.NewLine;
             stringBuilder.Append(newLine);
             stringBuilder.AppendLine("Exception Remark：" + remark);
-            Exception innerException = ex.InnerException;
+            System.Exception innerException = ex.InnerException;
             stringBuilder.AppendFormat("Exception Date:{0}{1}", DateTime.Now, Environment.NewLine);
             if (innerException != null)
             {
@@ -125,7 +125,7 @@ namespace NetFrameWork.Common.Write
                 var path = Path.Combine(GetLogPath(), "Logs/" + saveFolder);
                 WriteLog(logContent, path);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 WriteLog(ex, "记录调用日志异常");
             }
@@ -155,7 +155,7 @@ namespace NetFrameWork.Common.Write
                             DateTime.Now.ToString("日志时间:yyyy-MM-dd HH:mm:ss") + Environment.NewLine + content
                             + Environment.NewLine);
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                     return false;
                 }

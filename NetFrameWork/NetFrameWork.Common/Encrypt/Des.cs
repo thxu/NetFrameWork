@@ -77,7 +77,7 @@ namespace NetFrameWork.Common.Encrypt
                     return str;
                 }
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 return string.Empty;
             }

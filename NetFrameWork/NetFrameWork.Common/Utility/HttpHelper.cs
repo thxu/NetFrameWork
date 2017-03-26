@@ -157,7 +157,7 @@ namespace NetFrameWork.Common.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 throw ex;
             }
@@ -251,7 +251,7 @@ namespace NetFrameWork.Common.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 if (isUseProxyIP)
                 {
@@ -319,7 +319,7 @@ namespace NetFrameWork.Common.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 throw ex;
             }
@@ -384,7 +384,7 @@ namespace NetFrameWork.Common.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 throw ex;
             }
@@ -473,7 +473,7 @@ namespace NetFrameWork.Common.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 throw ex;
             }
@@ -593,7 +593,7 @@ namespace NetFrameWork.Common.Utility
                     }
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 if (isUseProxyIP)
                 {
