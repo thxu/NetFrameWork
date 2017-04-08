@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFrameWork.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFrameWork.WCF", "NetFrameWork.WCF\NetFrameWork.WCF.csproj", "{D62A9692-4265-450E-9877-0772B1543595}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFrameWork.Mvc.Extension", "NetFrameWork.Mvc.Extension\NetFrameWork.Mvc.Extension.csproj", "{65B0AE9B-FED8-4836-8F37-0FBC0A4D73BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D62A9692-4265-450E-9877-0772B1543595}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D62A9692-4265-450E-9877-0772B1543595}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D62A9692-4265-450E-9877-0772B1543595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B0AE9B-FED8-4836-8F37-0FBC0A4D73BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B0AE9B-FED8-4836-8F37-0FBC0A4D73BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B0AE9B-FED8-4836-8F37-0FBC0A4D73BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B0AE9B-FED8-4836-8F37-0FBC0A4D73BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
