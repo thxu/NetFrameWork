@@ -22,4 +22,17 @@ namespace NetFrameWork.Common.Code
         [DataMember]
         public string Message { get; set; }
     }
+
+    /// <summary>
+    /// 结果
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Result<T> : Result
+    {
+        /// <summary>
+        /// 数据
+        /// </summary>
+        [DataMember]
+        public T Data;
+    }
 }
