@@ -11,15 +11,50 @@ namespace NetFrameWork.Common.Code
     public class Paging
     {
         /// <summary>
-        /// 页码(默认1)
+        /// 页码
         /// </summary>
         [DataMember]
-        public int PageIndex { get; set; } = 1;
+        private int pageIndex = 1;
 
         /// <summary>
-        /// 页大小(默认10)
+        /// 页码
         /// </summary>
-        public int PageSize { get; set; } = 10;
+        [DataMember]
+        public int PageIndex
+        {
+            get
+            {
+                return this.pageIndex;
+            }
+
+            set
+            {
+                this.pageIndex = value;
+            }
+        }
+
+        /// <summary>
+        /// 页大小
+        /// </summary>
+        [DataMember]
+        private int pageSize = 10;
+
+        /// <summary>
+        /// 页大小(默认10页)
+        /// </summary>
+        [DataMember]
+        public int PageSize
+        {
+            get
+            {
+                return this.pageSize;
+            }
+
+            set
+            {
+                this.pageSize = value;
+            }
+        }
 
         /// <summary>
         /// 总条数
@@ -57,7 +92,24 @@ namespace NetFrameWork.Common.Code
         /// 是否获取总条数
         /// </summary>
         [DataMember]
-        public bool GetRowsCount { get; set; } = true;
+        private bool getRowsCount = true;
+
+        /// <summary>
+        /// 是否获取总条数
+        /// </summary>
+        [DataMember]
+        public bool GetRowsCount
+        {
+            get
+            {
+                return this.getRowsCount;
+            }
+
+            set
+            {
+                this.getRowsCount = value;
+            }
+        }
 
         /// <summary>
         /// 开始索引

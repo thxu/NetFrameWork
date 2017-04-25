@@ -6,3 +6,7 @@
 /NetFrameWork/NetFrameWork.Common/obj/Debug
 /NetFrameWork/NetFrameWork.Test.Exe/bin/Debug
 /NetFrameWork/NetFrameWork.Test.Exe/obj/Debug
+/NetFrameWork/NetFrameWork.DbCommon
+/NetFrameWork/NetFrameWork.WCF
+/NetFrameWork/NetFrameWork.Mvc.Extension
+/NetFrameWork/NetFrameWork.Infrastructure
