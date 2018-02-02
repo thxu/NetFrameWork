@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace NetFrameWork.Common.Code
@@ -113,12 +114,33 @@ namespace NetFrameWork.Common.Code
             var defaultDateTime = GetTradeTableDefaultDateTime(); // 这个之前的订单不进行分表
             if (dateTime >= defaultDateTime)
             {
-                return $"{tableName}_{dateTime.ToString("yyyyMM")}";
+                return $"{tableName}_{dateTime:yyyyMM}";
             }
-            else
+            return tableName;
+        }
+
+        /// <summary>
+        /// 根据起止日期,获取分表后的表名列表
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="start">The start date.</param>
+        /// <param name="end">The end date.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
+        public static List<string> GetTableName(string tableName, DateTime start, DateTime end)
+        {
+            List<string> result = new List<string>();
+            var currDate = DateTime.Today;
+            if (end > currDate)
             {
-                return tableName;
+                end = currDate;
             }
+            var between = end.Year * 12 + end.Month - (start.Year * 12 + start.Month);
+            for (int i = 0; i <= between; i++)
+            {
+                var temp = start.AddMonths(i);
+                result.Add(tableName + "_" + temp.ToString("yyyyMM"));
+            }
+            return result;
         }
     }
 }
