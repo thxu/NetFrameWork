@@ -481,6 +481,104 @@ namespace NetFrameWork.Common.Utility
         }
 
         /// <summary>
+        /// 使用post方式访问目标网页，返回html页面
+        /// </summary>
+        /// <param name="targetURL">url</param>
+        /// <param name="referer">referer</param>
+        /// <param name="parametrs">parametrs</param>
+        /// <param name="encoding">encoding</param>
+        /// <param name="requestClientIp">是否使用Ip欺骗</param>
+        /// <param name="isUseProxyIP">是否使用代理IP</param>
+        /// <param name="timeout">超时时间</param>
+        /// <returns>html</returns>
+        public byte[] HttpPost(string targetURL, string referer, byte[] parametrs, Encoding encoding, bool requestClientIp, bool isUseProxyIP, int timeout)
+        {
+            byte[] data = parametrs;
+
+            //请求目标网页
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(targetURL);
+
+            request.CookieContainer = this.Cookie;
+            request.Method = "POST";    //使用post方式发送数据
+            request.ContentType = "application/x-www-form-urlencoded";
+            if (!string.IsNullOrEmpty(this.ContentType))
+            {
+                request.ContentType = this.ContentType;
+            }
+            request.Referer = referer;
+            if (!string.IsNullOrEmpty(this.AcceptEncoding))
+            {
+                request.Headers["Accept-Encoding"] = AcceptEncoding;
+                request.AutomaticDecompression = DecompressionMethods.GZip;
+            }
+            if (!string.IsNullOrEmpty(this.Accept))
+            {
+                request.Accept = this.Accept;
+            }
+            request.Timeout = timeout;
+            request.ServicePoint.Expect100Continue = this.Expect100Continue;
+            ServicePointManager.Expect100Continue = this.Expect100Continue;
+            if (!string.IsNullOrEmpty(this.AcceptLanguage))
+            {
+                request.Headers.Add("Accept-Language:" + this.AcceptLanguage);
+            }
+            bool isHttps = targetURL.ToLower().Contains("https");
+            if (isHttps)
+            {
+                ServicePointManager.ServerCertificateValidationCallback = ((sender, certificate, chain, sslPolicyErrors) => true);
+            }
+            if (requestClientIp)
+            {
+                request.Headers.Add("X-Forwarded-For", this.GetRequestIP());
+                request.Headers.Add("Client-Ip", this.GetRequestIP());
+            }
+            request.ContentLength = data.Length;
+            request.UserAgent = this.UserAgent ?? this.GetUseAgent();
+            if (this.KeepAlive)
+            {
+                request.KeepAlive = this.KeepAlive;
+            }
+            try
+            {
+
+                using (Stream newStream = request.GetRequestStream())
+                {
+                    newStream.Write(data, 0, data.Length);
+                    newStream.Close();
+                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    {
+                        this.Cookie.Add(response.Cookies);
+                        using (Stream stream = response.GetResponseStream())
+                        {
+                            byte[] arrImageByte;
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                const int bufferLength = 1024;
+                                int actual;
+                                byte[] buffer = new byte[bufferLength];
+                                while (stream != null && (actual = stream.Read(buffer, 0, bufferLength)) > 0)
+                                {
+                                    ms.Write(buffer, 0, actual);
+                                }
+
+                                arrImageByte = new byte[ms.Length];
+                                ms.Position = 0;
+                                ms.Read(arrImageByte, 0, arrImageByte.Length);
+                            }
+
+                            return arrImageByte;
+                        }
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// 使用XML post方式访问目标网页，返回html页面
         /// </summary>
         /// <param name="targetURL">url</param>
